@@ -11,13 +11,13 @@ actual class Platform() {
         get() = "Android"
     actual val osVersion: String
         get() = "${Build.VERSION.SDK_INT}"
-    actual val deviceName: String
+    actual val deviceModel: String
         get() = "${Build.MANUFACTURER} ${Build.MODEL}"
     actual val density: Int
         get() = round( Resources.getSystem().displayMetrics.density ).toInt()
 
     actual fun logSystemInfo() {
-        Log.d("Platform", "OS: $osName $osVersion, Device: $deviceName, Density: $density")
+        Log.d("Platform", "OS: $osName $osVersion, Device: $deviceModel, Density: $density")
     }
 
 }
