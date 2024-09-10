@@ -7,7 +7,8 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"
+                freeCompilerArgs += listOf("-Xexpect-actual-classes")
             }
         }
     }
@@ -21,6 +22,11 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
+        it.compilations.all {
+            kotlinOptions {
+                freeCompilerArgs += listOf("-Xexpect-actual-classes")
+            }
+        }
     }
 
     sourceSets {
@@ -31,6 +37,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
         }
+
 
         iosMain.dependencies {
         }
@@ -48,7 +55,7 @@ android {
         minSdk = 33
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
