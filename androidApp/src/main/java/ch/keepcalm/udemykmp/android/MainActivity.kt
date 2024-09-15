@@ -3,6 +3,7 @@ package ch.keepcalm.udemykmp.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -10,12 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ch.keepcalm.udemykmp.Platform
 import ch.keepcalm.udemykmp.android.screens.AboutScreen
+import ch.keepcalm.udemykmp.android.screens.ArticlesScreen
+import ch.keepcalm.udemykmp.article.ArticlesViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Platform().logSystemInfo()
+//        Platform().logSystemInfo()
+        val articlesViewModel : ArticlesViewModel by viewModels()
 
         setContent {
             MyApplicationTheme {
@@ -23,7 +27,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AboutScreen()
+//                    AboutScreen()
+                    ArticlesScreen(onAboutButtonClick = {}, articlesViewModel = articlesViewModel)
                 }
             }
         }
