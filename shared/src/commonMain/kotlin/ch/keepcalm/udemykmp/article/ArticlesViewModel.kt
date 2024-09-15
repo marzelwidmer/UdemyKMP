@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 
-class ArticleViewModel() : BaseViewModel() {
+class ArticlesViewModel() : BaseViewModel() {
 
     private val _articlesState: MutableStateFlow<ArticleState> = MutableStateFlow(ArticleState(loading = true))
 

@@ -1,4 +1,4 @@
-package ch.keepcalm.udemykmp.android
+package ch.keepcalm.udemykmp.android.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
