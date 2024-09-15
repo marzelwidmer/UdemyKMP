@@ -6,12 +6,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
+class ArticlesViewModel: BaseViewModel() {
 
-class ArticlesViewModel() : BaseViewModel() {
+    private val _articlesState: MutableStateFlow<ArticlesState> = MutableStateFlow(ArticlesState(loading = true))
 
-    private val _articlesState: MutableStateFlow<ArticleState> = MutableStateFlow(ArticleState(loading = true))
-
-    val articleState: StateFlow<ArticleState> get() = _articlesState
+    val articlesState: StateFlow<ArticlesState> get() = _articlesState
 
     init {
         getArticles()
@@ -19,44 +18,38 @@ class ArticlesViewModel() : BaseViewModel() {
 
     private fun getArticles() {
         scope.launch {
+            delay(2000)
+
+            _articlesState.emit(ArticlesState(error = "Something went wrong"))
+
+            delay(2000)
 
             val fetchedArticles = fetchArticles()
 
-            delay(500)
-
-            _articlesState.emit(ArticleState(articles = fetchedArticles))
+            _articlesState.emit(ArticlesState(articles = fetchedArticles))
         }
     }
 
-    suspend fun fetchArticles() : List<Article> = mockArticles
-/*
-
-    suspend fun getArticlesFromApi() {
-        _articlesState.emit(ArticleState(loading = true))
-        delay(500)
-        _articlesState.emit(ArticleState(articles = mockArticles))
-    }
-*/
+    private suspend fun fetchArticles(): List<Article> = mockArticles
 
     private val mockArticles = listOf(
         Article(
-            title = "Article 1",
-            desc = "Description 1",
-            date = "2021-09-01",
-            imageUrl = "https://picsum.photos/200/300"
+            "Stock market today: Live updates - CNBC",
+            "Futures were higher in premarket trading as Wall Street tried to regain its footing.",
+            "2023-11-09",
+            "https://image.cnbcfm.com/api/v1/image/107326078-1698758530118-gettyimages-1765623456-wall26362_igj6ehhp.jpeg?v=1698758587&w=1920&h=1080"
         ),
         Article(
-            title = "Article 2",
-            desc = "Description 2",
-            date = "2021-09-02",
-            imageUrl = "https://picsum.photos/200/300"
+            "Best iPhone Deals (2023): Carrier Deals, Unlocked iPhones",
+            "Apple's smartphones rarely go on sale, but if you’re looking to upgrade (or you're gift shopping), here are a few cost-saving options.",
+            "2023-11-09",
+            "https://media.wired.com/photos/622aa5c8cca6acf55fb70b57/191:100/w_1280,c_limit/iPhone-13-Pro-Colors-SOURCE-Apple-Gear.jpg",
         ),
         Article(
-            title = "Article 3",
-            desc = "Description 3",
-            date = "2021-09-03",
-            imageUrl = "https://picsum.photos/200/300"
+            "Samsung details ‘Galaxy AI’ and a feature that can translate phone calls in real time",
+            "In a new blog post, Samsung previewed what it calls “a new era of Galaxy AI” coming to its smartphones and detailed a feature that will use artificial intelligence to translate phone calls in real time.",
+            "2023-11-09",
+            "https://cdn.vox-cdn.com/thumbor/Ocz_QcxUdtaexp1pPTMygaqzbR8=/0x0:2000x1333/1200x628/filters:focal(1000x667:1001x668)/cdn.vox-cdn.com/uploads/chorus_asset/file/24396795/DSC04128_processed.jpg",
         ),
     )
-
 }
